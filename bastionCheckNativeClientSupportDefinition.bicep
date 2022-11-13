@@ -1,4 +1,4 @@
-targetScope = 'subscription'
+targetScope = 'managementGroup'
 
 resource definition 'Microsoft.Authorization/policyDefinitions@2021-06-01' = {
     name: 'deployBastionTunnelingPolicyDefinition'
