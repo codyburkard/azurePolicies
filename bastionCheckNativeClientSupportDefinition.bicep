@@ -1,4 +1,4 @@
-targetScope = 'managementGroup'
+targetScope = 'subscription'
 
 resource definition 'Microsoft.Authorization/policyDefinitions@2021-06-01' = {
     name: 'deployBastionTunnelingPolicyDefinition'
@@ -19,23 +19,15 @@ resource definition 'Microsoft.Authorization/policyDefinitions@2021-06-01' = {
         }
         policyRule: {
           if: {
-            anyOf:[
+            allOf: [
                 {
-                    allOf: [
-                        {
-                            field: 'type'
-                            equals: 'Microsoft.Network/BastionHosts'
-                        }
-                        {
-                            anyOf: [
-                                {
-                                    field: 'Microsoft.Network/BastionHosts/enableTunneling'
-                                    equals: true
-                                }
-                            ]
-                        }
-                    ]
-                } 
+                    field: 'type'
+                    equals: 'Microsoft.Network/BastionHosts'
+                }
+                {
+                    field: 'Microsoft.Network/BastionHosts/enableTunneling'
+                    equals: true
+                }
             ]
           }
           then: {
